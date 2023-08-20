@@ -1,5 +1,13 @@
+"use client"
 import './globals.css'
 import { Inter } from 'next/font/google'
+import Header from './component/header'
+import Footer from './component/footer'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import "bootstrap-css-only/css/bootstrap.min.css";
+import "mdbreact/dist/css/mdb.css";
+import { usePathname, useRouter } from 'next/navigation';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -13,9 +21,17 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+
+  const currentPage = usePathname();
+  const router = useRouter();
+  
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body>
+        {currentPage == '/login' || currentPage == '/register' ? '' : <Header />}
+          {children}
+        {currentPage == '/login' || currentPage == '/register' ? '' : <Footer />}
+      </body>
     </html>
   )
 }
